@@ -1,9 +1,10 @@
 package org.parser.impl;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import org.parser.ParsingResult;
-import org.parser.ReportData;
+import org.parser.RenderingData;
 import org.parser.SummaryData;
 
 /**
@@ -11,19 +12,22 @@ import org.parser.SummaryData;
  */
 public class ParsingResultImpl implements ParsingResult
 {
-  private List<ReportData> reportDatas;
+  private Collection<RenderingData> renderingDatas;
   private SummaryData summaryData;
 
-  @Override
-  public List<ReportData> getReportDatas()
-  {
-    return reportDatas;
+  public ParsingResultImpl() {
+    summaryData = new SummaryDataImpl();
+    renderingDatas = new LinkedList<>();
   }
 
-  @Override
-  public void setReportDatas(List<ReportData> reportDatas)
+  public Collection<RenderingData> getRenderingDatas()
   {
-    this.reportDatas = reportDatas;
+    return renderingDatas;
+  }
+
+  public void setRenderingDatas(Collection<RenderingData> renderingDatas)
+  {
+    this.renderingDatas = renderingDatas;
   }
 
   @Override

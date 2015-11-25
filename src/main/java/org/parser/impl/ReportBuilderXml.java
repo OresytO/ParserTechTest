@@ -11,8 +11,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.parser.ParsingResult;
+import org.parser.RenderingData;
 import org.parser.ReportBuilder;
-import org.parser.ReportData;
 import org.parser.SummaryData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -48,9 +48,9 @@ public class ReportBuilderXml implements ReportBuilder
 
     // TODO: loop here
     // rendering elements
-    for (ReportData reportData : parsingResult.getReportDatas())
+    for (RenderingData renderingData : parsingResult.getRenderingDatas())
     {
-      report.appendChild(getRendering(reportData));
+      report.appendChild(getRendering(renderingData));
     }
     // summary elements
     report.appendChild(getSummary(parsingResult.getSummaryData()));
@@ -82,26 +82,26 @@ public class ReportBuilderXml implements ReportBuilder
     return node;
   }
 
-  private Node getRendering(ReportData reportData)
+  private Node getRendering(RenderingData renderingData)
   {
 
     // rendering elements
     Element rendering = doc.createElement("rendering");
 
     // document elements
-    rendering.appendChild(getNode("document", reportData.getDocument()));
+    rendering.appendChild(getNode("document", renderingData.getDocument()));
 
     // page elements
-    rendering.appendChild(getNode("page", reportData.getPage()));
+    rendering.appendChild(getNode("page", renderingData.getPage()));
 
     // uid elements
-    rendering.appendChild(getNode("uid", reportData.getUid()));
+    rendering.appendChild(getNode("uid", renderingData.getUid()));
 
     // start elements
-    reportData.getStart().forEach(s -> rendering.appendChild(getNode("start", s)));
+    renderingData.getStarts().forEach(s -> rendering.appendChild(getNode("start", s)));
 
     // get elements
-    reportData.getGet().forEach(g -> rendering.appendChild(getNode("get", g)));
+    renderingData.getGets().forEach(g -> rendering.appendChild(getNode("get", g)));
 
     return rendering;
   }

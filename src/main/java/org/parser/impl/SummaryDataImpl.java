@@ -36,6 +36,12 @@ public class SummaryDataImpl implements SummaryData
   }
 
   @Override
+  public void incrementDuplicates()
+  {
+    this.duplicates++;
+  }
+
+  @Override
   public int getUnnecessary()
   {
     return unnecessary;

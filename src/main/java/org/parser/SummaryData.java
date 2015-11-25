@@ -13,6 +13,8 @@ public interface SummaryData
 
   void setDuplicates(int duplicates);
 
+  void incrementDuplicates();
+
   int getUnnecessary();
 
   void setUnnecessary(int unnecessary);
