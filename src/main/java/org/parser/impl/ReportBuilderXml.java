@@ -52,7 +52,10 @@ public class ReportBuilderXml implements ReportBuilder
       report.appendChild(getRendering(renderingData));
     }
     // summary elements
-    report.appendChild(getSummary(parsingResult.getSummaryData()));
+    if (parsingResult.getSummaryData() != null)
+    {
+      report.appendChild(getSummary(parsingResult.getSummaryData()));
+    }
 
     try
     {
