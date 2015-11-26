@@ -8,7 +8,5 @@ import javax.xml.transform.stream.StreamResult;
 public interface ReportBuilder
 {
 
-  void buildReport(ParsingResult parsingResult);
-
-  void getReport(StreamResult result);
+  void getReport (ParsingResult parsingResult, StreamResult resultOutput);
 }

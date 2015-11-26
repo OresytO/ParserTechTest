@@ -1,15 +1,15 @@
 package org.parser;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by OrestO on 24.11.2015.
  */
 public interface ParsingResult
 {
-  Collection<RenderingData> getRenderingDatas();
+  List<RenderingData> getRenderingDatas();
 
-  void setRenderingDatas(Collection<RenderingData> renderingDatas);
+  void setRenderingDatas(List<RenderingData> renderingDatas);
 
   SummaryData getSummaryData();
 

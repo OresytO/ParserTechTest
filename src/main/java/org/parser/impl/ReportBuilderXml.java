@@ -40,13 +40,12 @@ public class ReportBuilderXml implements ReportBuilder
   }
 
   @Override
-  public void buildReport(ParsingResult parsingResult)
+  public void getReport(ParsingResult parsingResult, StreamResult result)
   {
     // report elements
     Element report = doc.createElement("report");
     doc.appendChild(report);
 
-    // TODO: loop here
     // rendering elements
     for (RenderingData renderingData : parsingResult.getRenderingDatas())
     {
@@ -54,11 +53,7 @@ public class ReportBuilderXml implements ReportBuilder
     }
     // summary elements
     report.appendChild(getSummary(parsingResult.getSummaryData()));
-  }
 
-  @Override
-  public void getReport(StreamResult result)
-  {
     try
     {
       // write the content into xml file
@@ -108,16 +103,16 @@ public class ReportBuilderXml implements ReportBuilder
 
   private Node getSummary(SummaryData summaryData)
   {
-    // rendering elements
+    // summary element
     Element rendering = doc.createElement("summary");
 
-    // count elements
+    // count element
     rendering.appendChild(getNode("count", Integer.toString(summaryData.getCount())));
 
-    // duplicates elements
+    // duplicates element
     rendering.appendChild(getNode("duplicates", Integer.toString(summaryData.getDuplicates())));
 
-    // unnecessary elements
+    // unnecessary element
     rendering.appendChild(getNode("unnecessary", Integer.toString(summaryData.getUnnecessary())));
 
     return rendering;

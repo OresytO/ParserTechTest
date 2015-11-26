@@ -52,4 +52,31 @@ public class SummaryDataImpl implements SummaryData
   {
     this.unnecessary = unnecessary;
   }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    SummaryDataImpl that = (SummaryDataImpl) o;
+
+    if (count != that.count)
+      return false;
+    if (duplicates != that.duplicates)
+      return false;
+    return unnecessary == that.unnecessary;
+
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result = count;
+    result = 31 * result + duplicates;
+    result = 31 * result + unnecessary;
+    return result;
+  }
 }

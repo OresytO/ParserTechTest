@@ -3,10 +3,7 @@ package org.parser.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +11,7 @@ import org.parser.Parser;
 import org.parser.ParsingResult;
 import org.parser.RenderingData;
 import org.parser.SummaryData;
+import org.parser.util.Lists;
 
 /**
  * Created by OrestO on 24.11.2015.
@@ -75,7 +73,7 @@ public class ParserImpl implements Parser
       e.printStackTrace();
     }
     // TODO
-    parsingResult.setRenderingDatas(uidToRenderingMap.values());
+    parsingResult.setRenderingDatas(Lists.newArrayList(uidToRenderingMap.values()));
     SummaryData summaryData = parsingResult.getSummaryData();
     summaryData.setCount(uidToRenderingMap.size());
     summaryData.setUnnecessary((int) uidToRenderingMap.values().stream().filter(i -> i.getGets().isEmpty()).count());

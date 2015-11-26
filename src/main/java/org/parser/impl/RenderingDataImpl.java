@@ -95,4 +95,35 @@ public class RenderingDataImpl implements RenderingData
   {
     this.gets.addAll(newGets);
   }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    RenderingDataImpl that = (RenderingDataImpl) o;
+
+    if (!document.equals(that.document))
+      return false;
+    if (!page.equals(that.page))
+      return false;
+    if (uid != null ? !uid.equals(that.uid) : that.uid != null)
+      return false;
+    if (starts != null ? !starts.equals(that.starts) : that.starts != null)
+      return false;
+    return gets != null ? gets.equals(that.gets) : that.gets == null;
+
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result = document.hashCode();
+    result = 31 * result + page.hashCode();
+    result = 31 * result + (uid != null ? uid.hashCode() : 0);
+    return result;
+  }
 }
