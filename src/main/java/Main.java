@@ -15,7 +15,6 @@ public class Main
     long start = System.currentTimeMillis();
     Parser parser = new ParserImpl();
     ReportBuilder builder = new ReportBuilderXml();
-    // builder.buildReport(new StreamResult(new File("C:\\file.xml")));
     builder.buildReport(parser.parse(new FileReader("C:\\Users\\OrestO\\Desktop\\server\\server.log")));
     builder.getReport(new StreamResult(System.out));
     System.out.println((System.currentTimeMillis() - start));
