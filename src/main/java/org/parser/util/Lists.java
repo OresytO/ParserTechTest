@@ -16,23 +16,14 @@ public class Lists {
     {
       return new ArrayList<>(0);
     }
-    else if (e.size() == 0)
-    {
-      return new ArrayList<>(0);
-    }
 
-    List<E> list = new ArrayList<>(e);
-    return list;
+    return new ArrayList<>(e);
   }
 
   @SafeVarargs
   public static <E> List<E> newArrayList(E ... e)
   {
     if (e == null)
-    {
-      return new ArrayList<>(0);
-    }
-    else if (e.length == 0)
     {
       return new ArrayList<>(0);
     }
