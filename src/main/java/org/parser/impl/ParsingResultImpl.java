@@ -8,7 +8,8 @@ import org.parser.RenderingData;
 import org.parser.SummaryData;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * This class holds all rendering results
+ * @author Orest Lozynskyy
  */
 public class ParsingResultImpl implements ParsingResult
 {

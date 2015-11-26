@@ -19,7 +19,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * This class represents XML report builder
+ * @author Orest Lozynskyy
  */
 public class ReportBuilderXml implements ReportBuilder
 {
@@ -42,14 +43,22 @@ public class ReportBuilderXml implements ReportBuilder
   @Override
   public void getReport(ParsingResult parsingResult, StreamResult result)
   {
-    // report elements
+    if (parsingResult == null)
+    {
+      throw new IllegalArgumentException("Can't build report without ParsingResult");
+    }
+
+    // report element
     Element report = doc.createElement("report");
     doc.appendChild(report);
 
     // rendering elements
-    for (RenderingData renderingData : parsingResult.getRenderingDatas())
+    if (parsingResult.getRenderingDatas() != null)
     {
-      report.appendChild(getRendering(renderingData));
+      for (RenderingData renderingData : parsingResult.getRenderingDatas())
+      {
+        report.appendChild(getRendering(renderingData));
+      }
     }
     // summary elements
     if (parsingResult.getSummaryData() != null)

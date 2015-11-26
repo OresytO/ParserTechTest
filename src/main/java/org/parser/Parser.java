@@ -3,7 +3,8 @@ package org.parser;
 import java.io.Reader;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * All parsers implementations should implements this interface
+ * @author Orest Lozynskyy
  */
 public interface Parser
 {

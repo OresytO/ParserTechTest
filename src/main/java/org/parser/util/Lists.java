@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by olozyn on 26.11.2015.
+ * This is helper class.
+ * @author Orest Lozynskyy
  */
 public class Lists {
 

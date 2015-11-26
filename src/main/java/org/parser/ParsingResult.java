@@ -3,7 +3,8 @@ package org.parser;
 import java.util.List;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * All parsing results implementations should implements this interface
+ * @author Orest Lozynskyy
  */
 public interface ParsingResult
 {

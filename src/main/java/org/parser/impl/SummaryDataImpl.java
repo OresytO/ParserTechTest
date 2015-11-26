@@ -3,7 +3,8 @@ package org.parser.impl;
 import org.parser.SummaryData;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * This class represents summary block of report
+ * @author Orest Lozynskyy
  */
 public class SummaryDataImpl implements SummaryData
 {

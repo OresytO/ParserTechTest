@@ -1,7 +1,8 @@
 package org.parser;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * All summary data implementations should implements this interface
+ * @author Orest Lozynskyy
  */
 public interface SummaryData
 {

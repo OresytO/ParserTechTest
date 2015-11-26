@@ -3,7 +3,8 @@ package org.parser;
 import javax.xml.transform.stream.StreamResult;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * All reports builders implementations should implements this interface
+ * @author Orest Lozynskyy
  */
 public interface ReportBuilder
 {

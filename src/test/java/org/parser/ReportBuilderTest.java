@@ -30,9 +30,13 @@ public class ReportBuilderTest {
     parsingResult = new ParsingResultImpl();
     parsingResult.setSummaryData(null);
     renderingData = new RenderingDataImpl();
+    parsingResult.setRenderingDatas(Lists.newArrayList(renderingData));
     stringWriter = new StringWriter(150);
   }
 
+  /**
+   * Verify that summary section of report looks as expected
+   */
   @Test
   public void verifySummary()
   {
@@ -45,6 +49,7 @@ public class ReportBuilderTest {
                       "</summary>\r\n" +
                       "</report>\r\n";
 
+    parsingResult.setRenderingDatas(null);
     SummaryData summaryData = new SummaryDataImpl();
     summaryData.setCount(1);
     summaryData.setDuplicates(0);
@@ -78,7 +83,6 @@ public class ReportBuilderTest {
     renderingData.setUid("1286373733634-5423");
     renderingData.setStarts(Lists.newArrayList("2010-10-06 09:02:13,631"));
     renderingData.setGets(Lists.newArrayList("2010-10-06 09:06:36,885"));
-    parsingResult.setRenderingDatas(Lists.newArrayList(renderingData));
 
     builder.getReport(parsingResult, new StreamResult(stringWriter));
 
@@ -112,7 +116,6 @@ public class ReportBuilderTest {
     renderingData.setUid("1286373733634-5421");
     renderingData.setStarts(Lists.newArrayList("2010-10-06 09:02:13,631", "2010-10-06 09:02:13,631", "2010-10-06 09:02:13,631"));
     renderingData.setGets(Lists.newArrayList("2010-10-06 09:06:36,885", "2010-10-06 09:06:36,885", "2010-10-06 09:06:36,885"));
-    parsingResult.setRenderingDatas(Lists.newArrayList(renderingData));
 
     builder.getReport(parsingResult, new StreamResult(stringWriter));
 
@@ -120,10 +123,10 @@ public class ReportBuilderTest {
   }
 
   /**
-   * Checks case when we should writes report with multiple start request and multiple get request
+   * Checks case when we should writes report with multiple start request and single get request
    */
   @Test
-  public void verifyRenderingWithSingleStartAndMultipleGet()
+  public void verifyRenderingWithMultipleStartAndSingleGet()
   {
     String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
                       "<report>\r\n" +
@@ -150,14 +153,14 @@ public class ReportBuilderTest {
     Assert.assertEquals(expected, stringWriter.toString());
   }
 
+  /**
+   * Checks case when we should writes report with single start request and multiple get request
+   */
   @Test
-  public void checkReportWithMultipleRenderings()
+  public void verifyRenderingWithSingleStartAndMultipleGet()
   {
-    ReportBuilder builder = new ReportBuilderXml();
-
     String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
                       "<report>\r\n" +
-
                       //Single start and multiple get
                       "<rendering>\r\n" +
                       "<document>114462</document>\r\n" +
@@ -168,8 +171,27 @@ public class ReportBuilderTest {
                       "<get>2010-10-06 09:06:36,885</get>\r\n" +
                       "<get>2010-10-06 09:06:36,885</get>\r\n" +
                       "</rendering>\r\n" +
+                      "</report>\r\n";
 
+    renderingData.setDocument("114462");
+    renderingData.setPage("3");
+    renderingData.setUid("1286373733634-5423");
+    renderingData.setStarts(Lists.newArrayList("2010-10-06 09:02:13,631"));
+    renderingData.setGets(Lists.newArrayList("2010-10-06 09:06:36,885", "2010-10-06 09:06:36,885", "2010-10-06 09:06:36,885"));
 
+    builder.getReport(parsingResult, new StreamResult(stringWriter));
+
+    Assert.assertEquals(expected, stringWriter.toString());
+  }
+
+  /**
+   * Checks case when we should writes report with empty start request and single get request
+   */
+  @Test
+  public void verifyRenderingWithEmptyStartAndSingleGet()
+  {
+    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
+                      "<report>\r\n" +
                       //Empty start and single get
                       "<rendering>\r\n" +
                       "<document>114464</document>\r\n" +
@@ -178,7 +200,27 @@ public class ReportBuilderTest {
                       "<start/>\r\n" +
                       "<get>2010-10-06 09:06:36,885</get>\r\n" +
                       "</rendering>\r\n" +
+                      "</report>\r\n";
 
+    renderingData.setDocument("114464");
+    renderingData.setPage("5");
+    renderingData.setUid("1286373733634-5425");
+    renderingData.setStarts(Lists.newArrayList(""));
+    renderingData.setGets(Lists.newArrayList("2010-10-06 09:06:36,885"));
+
+    builder.getReport(parsingResult, new StreamResult(stringWriter));
+
+    Assert.assertEquals(expected, stringWriter.toString());
+  }
+
+  /**
+   * Checks case when we should writes report with single start request and empty get request
+   */
+  @Test
+  public void verifyRenderingWithSingleStartAndEmptyGet()
+  {
+    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
+                      "<report>\r\n" +
                       //Single start and empty get
                       "<rendering>\r\n" +
                       "<document>114465</document>\r\n" +
@@ -187,7 +229,27 @@ public class ReportBuilderTest {
                       "<start>2010-10-06 09:02:13,631</start>\r\n" +
                       "<get/>\r\n" +
                       "</rendering>\r\n" +
+                      "</report>\r\n";
 
+    renderingData.setDocument("114465");
+    renderingData.setPage("6");
+    renderingData.setUid("1286373733634-5426");
+    renderingData.setStarts(Lists.newArrayList("2010-10-06 09:02:13,631"));
+    renderingData.setGets(Lists.newArrayList(""));
+
+    builder.getReport(parsingResult, new StreamResult(stringWriter));
+
+    Assert.assertEquals(expected, stringWriter.toString());
+  }
+
+  /**
+   * Checks case when we should writes report with empty start request and empty get request
+   */
+  @Test
+  public void verifyRenderingWithEmptyStartAndEmptyGet()
+  {
+    String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
+                      "<report>\r\n" +
                       //Empty start and empty get
                       "<rendering>\r\n" +
                       "<document>114466</document>\r\n" +
@@ -196,54 +258,14 @@ public class ReportBuilderTest {
                       "<start/>\r\n" +
                       "<get/>\r\n" +
                       "</rendering>\r\n" +
-
-                      "<summary>\r\n" +
-                      "<count>7</count>\r\n" +
-                      "<duplicates>0</duplicates>\r\n" +
-                      "<unnecessary>0</unnecessary>\r\n" +
-                      "</summary>\r\n" +
                       "</report>\r\n";
 
-    ParsingResult parsingResult = new ParsingResultImpl();
+    renderingData.setDocument("114466");
+    renderingData.setPage("7");
+    renderingData.setUid("1286373733634-5427");
+    renderingData.setStarts(Lists.newArrayList(""));
+    renderingData.setGets(Lists.newArrayList(""));
 
-    RenderingData renderingData2 = new RenderingDataImpl();
-
-
-    RenderingData renderingData3 = new RenderingDataImpl();
-    renderingData3.setDocument("114462");
-    renderingData3.setPage("3");
-    renderingData3.setUid("1286373733634-5423");
-    renderingData3.setStarts(Lists.newArrayList("2010-10-06 09:02:13,631"));
-    renderingData3.setGets(Lists.newArrayList("2010-10-06 09:06:36,885", "2010-10-06 09:06:36,885", "2010-10-06 09:06:36,885"));
-
-    RenderingData renderingData5 = new RenderingDataImpl();
-    renderingData5.setDocument("114464");
-    renderingData5.setPage("5");
-    renderingData5.setUid("1286373733634-5425");
-    renderingData5.setStarts(Lists.newArrayList(""));
-    renderingData5.setGets(Lists.newArrayList("2010-10-06 09:06:36,885"));
-
-    RenderingData renderingData6 = new RenderingDataImpl();
-    renderingData6.setDocument("114465");
-    renderingData6.setPage("6");
-    renderingData6.setUid("1286373733634-5426");
-    renderingData6.setStarts(Lists.newArrayList("2010-10-06 09:02:13,631"));
-    renderingData6.setGets(Lists.newArrayList(""));
-
-    RenderingData renderingData7 = new RenderingDataImpl();
-    renderingData7.setDocument("114466");
-    renderingData7.setPage("7");
-    renderingData7.setUid("1286373733634-5427");
-    renderingData7.setStarts(Lists.newArrayList(""));
-    renderingData7.setGets(Lists.newArrayList(""));
-
-    SummaryData summaryData = new SummaryDataImpl();
-    summaryData.setCount(7);
-    summaryData.setDuplicates(0);
-    summaryData.setUnnecessary(0);
-    parsingResult.setSummaryData(summaryData);
-
-    StringWriter stringWriter = new StringWriter(150);
     builder.getReport(parsingResult, new StreamResult(stringWriter));
 
     Assert.assertEquals(expected, stringWriter.toString());

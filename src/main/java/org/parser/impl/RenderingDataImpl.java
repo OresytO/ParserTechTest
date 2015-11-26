@@ -6,7 +6,8 @@ import java.util.List;
 import org.parser.RenderingData;
 
 /**
- * Created by OrestO on 24.11.2015.
+ * This class represents rendering block of report
+ * @author Orest Lozynskyy
  */
 public class RenderingDataImpl implements RenderingData
 {
